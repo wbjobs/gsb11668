@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Worker 池 · 负载均衡任务调度</title>
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <header>
+    <h1>Worker 池调度台</h1>
+    <div id="pool-stats" class="stats"></div>
+  </header>
+
+  <main>
+    <section class="panel controls">
+      <h2>控制</h2>
+      <div class="control-row">
+        <label>工作量 <input id="opt-work" type="number" value="60" min="1" max="1000"></label>
+        <label>优先级
+          <select id="opt-priority">
+            <option value="0">普通</option>
+            <option value="1">高</option>
+            <option value="2">紧急</option>
+          </select>
+        </label>
+        <label>超时(ms) <input id="opt-timeout" type="number" value="8000" min="500" step="500"></label>
+        <label>数量 <input id="opt-count" type="number" value="4" min="1" max="50"></label>
+      </div>
+      <div class="control-row">
+        <button id="btn-submit" type="button">提交任务</button>
+        <button id="btn-burst" type="button">突发 12 个混合优先级</button>
+        <button id="btn-submit-long" type="button">提交超时任务</button>
+        <button id="btn-submit-crash" type="button">提交崩溃任务</button>
+      </div>
+      <div class="control-row">
+        <button id="btn-add-worker" type="button">+ 增加 Worker</button>
+        <button id="btn-remove-worker" type="button">− 减少 Worker</button>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>负载可视化</h2>
+      <canvas id="load-canvas" width="760" height="240"></canvas>
+    </section>
+
+    <section class="panel">
+      <h2>Worker 池</h2>
+      <div id="worker-list" class="worker-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>任务队列</h2>
+      <div id="task-list" class="task-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>任务历史（IndexedDB） <button id="btn-clear-history" type="button" class="small">清空</button></h2>
+      <div id="history-list" class="history-list"></div>
+    </section>
+
+    <section class="panel">
+      <h2>事件日志</h2>
+      <div id="event-log" class="event-log"></div>
+    </section>
+  </main>
+
+  <script src="js/db.js"></script>
+  <script src="js/pool.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
