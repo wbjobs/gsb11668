@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Worker 池 · 负载均衡任务调度</title>
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header>
+  <h1>Worker 池调度台</h1>
+  <div id="stats" class="stats"></div>
+</header>
+
+<section class="panel controls">
+  <fieldset>
+    <legend>Worker 池</legend>
+    <label>Worker 数量
+      <input type="number" id="workerCount" min="0" max="16" value="4">
+    </label>
+    <button id="applyResize">应用（动态增减）</button>
+    <label class="inline">
+      <input type="checkbox" id="forceFallback"> 模拟 Worker 创建失败（降级主线程）
+    </label>
+  </fieldset>
+
+  <fieldset>
+    <legend>提交任务</legend>
+    <label>名称 <input type="text" id="taskName" placeholder="task"></label>
+    <label>工作量
+      <select id="taskWork">
+        <option value="20">小（~0.1s）</option>
+        <option value="100" selected>中（~0.5s）</option>
+        <option value="400">大（~2s）</option>
+        <option value="1200">超大（~6s）</option>
+      </select>
+    </label>
+    <label>优先级
+      <select id="taskPriority">
+        <option value="0">普通</option>
+        <option value="10">高</option>
+        <option value="-10">低</option>
+      </select>
+    </label>
+    <label>超时(ms) <input type="number" id="taskTimeout" value="3000" step="500" min="500"></label>
+    <label>重试次数 <input type="number" id="taskRetries" value="1" min="0" max="5"></label>
+    <label class="inline"><input type="checkbox" id="taskCrash"> 中途崩溃</label>
+    <label class="inline"><input type="checkbox" id="taskFail"> 中途失败</label>
+    <button id="submitTask">提交任务</button>
+    <button id="burstTask">突发提交 ×12</button>
+    <button id="cancelAll">取消全部</button>
+  </fieldset>
+</section>
+
+<main>
+  <section class="panel">
+    <h2>Worker 负载</h2>
+    <canvas id="loadCanvas" height="220"></canvas>
+    <table id="workerTable">
+      <thead><tr><th>Worker</th><th>状态</th><th>当前任务</th><th>利用率</th><th>已完成</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>任务（实时）</h2>
+    <table id="taskTable">
+      <thead><tr><th>ID</th><th>名称</th><th>优先级</th><th>状态</th><th>进度</th><th>Worker</th><th>尝试</th><th>操作</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+
+  <section class="panel wide">
+    <h2>任务历史（IndexedDB）
+      <span class="actions">
+        <button id="reloadHistory">刷新</button>
+        <button id="clearHistory">清空历史</button>
+      </span>
+    </h2>
+    <table id="historyTable">
+      <thead><tr><th>ID</th><th>名称</th><th>状态</th><th>Worker</th><th>尝试</th><th>耗时(ms)</th><th>结束时间</th><th>结果/错误</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </section>
+</main>
+
+<script src="js/inline-worker.js"></script>
+<script src="js/pool.js"></script>
+<script src="js/history.js"></script>
+<script src="js/viz.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

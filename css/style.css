@@ -1,0 +1,58 @@
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", "PingFang SC", "Microsoft YaHei", sans-serif;
+  background: #f1f5f9;
+  color: #1e293b;
+}
+header {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 12px 20px; background: #0f172a; color: #e2e8f0;
+}
+header h1 { font-size: 18px; margin: 0; }
+.stats { font-size: 13px; }
+.stats .ok { color: #4ade80; }
+.stats .bad { color: #f87171; }
+
+.panel {
+  background: #fff; border: 1px solid #e2e8f0; border-radius: 8px;
+  margin: 12px; padding: 12px 16px;
+}
+.panel h2 { font-size: 15px; margin: 4px 0 10px; }
+.panel h2 .actions { float: right; }
+
+.controls { display: flex; gap: 24px; flex-wrap: wrap; }
+fieldset { border: 1px solid #e2e8f0; border-radius: 6px; display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+legend { font-size: 13px; color: #64748b; }
+label { font-size: 13px; display: flex; align-items: center; gap: 4px; }
+label.inline { white-space: nowrap; }
+input, select { padding: 3px 6px; border: 1px solid #cbd5e1; border-radius: 4px; font-size: 13px; }
+input[type="number"] { width: 70px; }
+button {
+  padding: 4px 12px; border: none; border-radius: 4px; cursor: pointer;
+  background: #3b82f6; color: #fff; font-size: 13px;
+}
+button:hover { background: #2563eb; }
+
+main { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+.panel.wide { grid-column: 1 / -1; }
+
+#loadCanvas { width: 100%; height: 220px; display: block; background: #f8fafc; border-radius: 6px; }
+
+table { width: 100%; border-collapse: collapse; font-size: 13px; }
+th, td { text-align: left; padding: 5px 8px; border-bottom: 1px solid #e2e8f0; }
+th { color: #64748b; font-weight: 600; }
+
+.bar {
+  display: inline-block; width: 60px; height: 8px; background: #e2e8f0;
+  border-radius: 4px; overflow: hidden; margin-right: 6px; vertical-align: middle;
+}
+.bar > div { height: 100%; background: #22c55e; }
+
+.st-success td { color: #166534; }
+.st-failed td { color: #b91c1c; }
+.st-cancelled td { color: #94a3b8; }
+
+.tag { font-size: 11px; padding: 1px 5px; border-radius: 3px; }
+.tag.warn { background: #fef3c7; color: #b45309; }
+.tag.bad { background: #fee2e2; color: #b91c1c; }
